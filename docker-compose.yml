@@ -2,7 +2,6 @@ version: '3.8'
 
 services:
 
-   #  docker-compose up --build
   frontend:
     build:
       context: .
@@ -10,25 +9,22 @@ services:
       target: development
     container_name: yadegar_nextjs_dev
     ports:
-      - "3000:3000"
+      - "3002:3000"
     volumes:
       - .:/app
       - /app/node_modules
     environment:
       - NODE_ENV=development
+      - API_URL=http://yadegar_machine
     command: npm run dev -- -H 0.0.0.0
+    networks:
+      - shared_net
+
+networks:
+  shared_net:
+    external: true
 
 
+# --- Production ---
 # docker build --target production -t yadegar-next-app .
-# docker run -p 3000:3000 yadegar-next-app
-
-#   frontend_prod:
-#     build:
-#       context: .
-#       dockerfile: Dockerfile
-#       target: production
-#     container_name: yadegar_nextjs_prod
-#     ports:
-#       - "3000:3000"
-#     environment:
-#       - NODE_ENV=production
+# docker run -p 3000:3000 -e API_URL=http://yadegar_machine --network shared_net yadegar-next-app
