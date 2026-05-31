@@ -1,14 +1,16 @@
 "use client";
 
 import { useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import PersianDatePicker from "@/components/ui/persian-date-picker";
+import AvatarUpload from "@/components/panel/profile/avatar-upload";
 import { updateProfile } from "@/actions/user";
 import { logout } from "@/actions/auth";
 import {
@@ -16,7 +18,7 @@ import {
   type UpdateProfileData,
   type UserType,
 } from "@/types/userType";
-import { LogOut, User, Phone } from "lucide-react";
+import { LogOut, Phone } from "lucide-react";
 
 interface Props {
   user: UserType;
@@ -30,7 +32,8 @@ export default function ProfileForm({ user }: Props) {
     defaultValues: {
       name: user.name ?? "",
       username: user.username ?? "",
-      gender: user.gender ?? undefined,
+      gender: user.gender ? Boolean(user.gender) : undefined,
+      birth_date: user.birth_date ?? "",
     },
   });
 
@@ -41,6 +44,9 @@ export default function ProfileForm({ user }: Props) {
       formData.append("username", data.username);
       if (data.gender !== undefined && data.gender !== null) {
         formData.append("gender", data.gender ? "1" : "0");
+      }
+      if (data.birth_date) {
+        formData.append("birth_date", data.birth_date);
       }
 
       const result = await updateProfile(user.id, formData);
@@ -60,14 +66,9 @@ export default function ProfileForm({ user }: Props) {
 
   return (
     <div className="flex flex-col gap-4">
-      {/* آواتار و اطلاعات کلی */}
+      {/* آواتار */}
       <div className="flex flex-col items-center gap-3 py-4">
-        <Avatar className="size-20 ring-4 ring-primary/20">
-          <AvatarImage src={user.avatar ?? undefined} alt={user.name ?? ""} />
-          <AvatarFallback className="bg-primary/10 text-primary">
-            <User className="size-8" />
-          </AvatarFallback>
-        </Avatar>
+        <AvatarUpload user={user} />
         <div className="text-center space-y-0.5">
           <p className="font-bold text-lg leading-tight">
             {user.name || "نام تنظیم نشده"}
@@ -122,6 +123,74 @@ export default function ProfileForm({ user }: Props) {
               {form.formState.errors.username && (
                 <p className="text-destructive text-sm">
                   {form.formState.errors.username.message}
+                </p>
+              )}
+            </div>
+
+            {/* جنسیت */}
+            <div className="flex flex-col gap-2">
+              <Label className="text-base font-medium">جنسیت</Label>
+              <Controller
+                control={form.control}
+                name="gender"
+                render={({ field }) => (
+                  <RadioGroup
+                    dir="rtl"
+                    value={
+                      field.value === true
+                        ? "male"
+                        : field.value === false
+                          ? "female"
+                          : ""
+                    }
+                    onValueChange={(val) =>
+                      field.onChange(
+                        val === "male" ? true : val === "female" ? false : null
+                      )
+                    }
+                    className="flex gap-3"
+                  >
+                    <div className="flex items-center gap-2 border rounded-lg px-4 py-3 flex-1 cursor-pointer has-[button[data-state=checked]]:border-primary has-[button[data-state=checked]]:bg-primary/5">
+                      <RadioGroupItem value="male" id="gender-male" />
+                      <Label
+                        htmlFor="gender-male"
+                        className="text-base cursor-pointer"
+                      >
+                        مرد
+                      </Label>
+                    </div>
+                    <div className="flex items-center gap-2 border rounded-lg px-4 py-3 flex-1 cursor-pointer has-[button[data-state=checked]]:border-primary has-[button[data-state=checked]]:bg-primary/5">
+                      <RadioGroupItem value="female" id="gender-female" />
+                      <Label
+                        htmlFor="gender-female"
+                        className="text-base cursor-pointer"
+                      >
+                        زن
+                      </Label>
+                    </div>
+                  </RadioGroup>
+                )}
+              />
+            </div>
+
+            {/* تاریخ تولد شمسی */}
+            <div className="flex flex-col gap-2">
+              <Label className="text-base font-medium">تاریخ تولد</Label>
+              <Controller
+                control={form.control}
+                name="birth_date"
+                render={({ field }) => (
+                  <PersianDatePicker
+                    value={field.value}
+                    onChange={field.onChange}
+                    placeholder="مثال: ۱۳۶۰/۰۱/۰۱"
+                    disabled={isPending}
+                  />
+                )}
+              />
+              {form.formState.errors.birth_date && (
+                <p className="text-destructive text-sm">
+                  {form.formState.errors.birth_date.message}
                 </p>
               )}
             </div>

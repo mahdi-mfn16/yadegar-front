@@ -34,6 +34,25 @@ export async function getMyInfo(): Promise<UserType | null> {
   }
 }
 
+export async function getUser(userId: number): Promise<UserType | null> {
+  try {
+    const res = await fetch(`${API_URL}/api/identities/users/${userId}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+      next: { tags: [`user-${userId}`] },
+    });
+
+    if (!res.ok) return null;
+
+    const data = await res.json();
+    return (data?.data as UserType) || null;
+  } catch {
+    return null;
+  }
+}
+
 export async function updateProfile(
   userId: number,
   formData: FormData

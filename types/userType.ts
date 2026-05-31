@@ -44,6 +44,11 @@ export const updateProfileSchema = z.object({
     .string()
     .max(30, "نام کاربری نمی‌تواند بیشتر از ۳۰ کاراکتر باشد"),
   gender: z.boolean().nullable().optional(),
+  birth_date: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "تاریخ تولد نامعتبر است (فرمت: YYYY-MM-DD)")
+    .nullable()
+    .optional(),
 });
 
 export type SendCodeData = z.infer<typeof sendCodeSchema>;
