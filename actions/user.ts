@@ -77,7 +77,7 @@ export async function updateProfile(
     }
 
     const data = await res.json();
-    revalidateTag('user-profile');
+    revalidateTag('user-profile', {expire: 300});
     return { success: true, user: data?.data as UserType };
   } catch {
     return { error: 'خطا در اتصال به سرور' };
