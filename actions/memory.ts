@@ -66,7 +66,7 @@ export async function createFolder(
     });
     if (!res.ok) {
       const data = await res.json().catch(() => ({}));
-      return { error: data?.message || 'خطا در ایجاد فولدر' };
+      return { error: data?.message || 'خطا در ایجاد آلبوم' };
     }
     const data = await res.json();
     revalidateTag('my-folders', {expire: 300});
@@ -94,7 +94,7 @@ export async function updateFolder(
     });
     if (!res.ok) {
       const data = await res.json().catch(() => ({}));
-      return { error: data?.message || 'خطا در ویرایش فولدر' };
+      return { error: data?.message || 'خطا در ویرایش آلبوم' };
     }
     revalidateTag('my-folders', {expire: 300});
     revalidateTag(`folder-${id}`, {expire: 300});
@@ -116,7 +116,7 @@ export async function deleteFolder(
     });
     if (!res.ok) {
       const data = await res.json().catch(() => ({}));
-      return { error: data?.message || 'خطا در حذف فولدر' };
+      return { error: data?.message || 'خطا در حذف آلبوم' };
     }
     revalidateTag('my-folders', {expire: 300});
     return { success: true };

@@ -22,12 +22,12 @@ export default function MemoryList({ initialMemories, folderId }: Props) {
   const refresh = useCallback(() => {
     startTransition(async () => {
       const fresh = await getMyMemories();
-      console.log('test 1111');
-      console.log(fresh);
-      console.log('test 2222');
-      setMemories(fresh);
+      const filtered = folderId
+        ? fresh.filter((m) => m.folder_id === folderId || m.folder?.id === folderId)
+        : fresh;
+      setMemories(filtered);
     });
-  }, []);
+  }, [folderId]);
 
   const newHref = folderId
     ? `/panel/memories/new?folder_id=${folderId}`

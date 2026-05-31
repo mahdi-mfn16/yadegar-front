@@ -44,7 +44,7 @@ export default function FolderCard({ folder, onMutated }: Props) {
         toast.error(result.error);
         return;
       }
-      toast.success("فولدر حذف شد");
+      toast.success("آلبوم حذف شد");
       onMutated();
       setIsDeleteOpen(false);
     });
@@ -130,9 +130,9 @@ export default function FolderCard({ folder, onMutated }: Props) {
       <AlertDialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>حذف فولدر</AlertDialogTitle>
+            <AlertDialogTitle>حذف آلبوم</AlertDialogTitle>
             <AlertDialogDescription>
-              آیا مطمئن هستید که می‌خواهید فولدر «{folder.title}» را حذف کنید؟
+              آیا مطمئن هستید که می‌خواهید آلبوم «{folder.title}» را حذف کنید؟
               این عمل قابل بازگشت نیست.
             </AlertDialogDescription>
           </AlertDialogHeader>

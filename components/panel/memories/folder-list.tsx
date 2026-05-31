@@ -29,7 +29,7 @@ export default function FolderList({ initialFolders }: Props) {
     <div className="flex flex-col gap-3">
       <div className="flex items-center justify-between">
         <p className="text-sm text-muted-foreground">
-          {folders.length === 0 ? "هنوز فولدری ندارید" : `${folders.length} فولدر`}
+          {folders.length === 0 ? "هنوز آلبومی ندارید" : `${folders.length} آلبوم`}
         </p>
         <Button
           variant="outline"
@@ -38,7 +38,7 @@ export default function FolderList({ initialFolders }: Props) {
           onClick={() => setIsCreateOpen(true)}
         >
           <Plus className="size-3.5" />
-          فولدر جدید
+          آلبوم جدید
         </Button>
       </div>
 
@@ -51,7 +51,7 @@ export default function FolderList({ initialFolders }: Props) {
           <div className="size-14 rounded-2xl bg-muted flex items-center justify-center">
             <Folder className="size-7" />
           </div>
-          <p className="text-sm">فولدری ندارید. بسازید تا خاطرات را مرتب کنید</p>
+          <p className="text-sm">آلبومی ندارید. بسازید تا خاطرات را مرتب کنید</p>
         </div>
       ) : (
         folders.map((folder) => (

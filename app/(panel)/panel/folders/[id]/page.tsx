@@ -8,7 +8,7 @@ import { ChevronRight, Folder } from "lucide-react";
 import MemoryList from "@/components/panel/memories/memory-list";
 
 export const metadata: Metadata = {
-  title: "فولدر | یادگار",
+  title: "آلبوم | یادگار",
 };
 
 interface Props {

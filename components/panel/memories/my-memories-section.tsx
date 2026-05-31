@@ -12,7 +12,7 @@ interface Props {
 }
 
 const TABS = [
-  { key: "folders", label: "فولدرها" },
+  { key: "folders", label: "آلبوم ها" },
   { key: "memories", label: "همه خاطرات" },
 ] as const;
 

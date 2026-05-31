@@ -44,11 +44,14 @@ export const VISIBILITY_BADGE: Record<
 
 export interface MediaFileType {
   id?: number;
-  url: string;
+  name?: string;
+  alt?: string;
+  file: string; // cdn_url/path — از FileCompactResource
 }
 
 export interface MemoryType {
   id: number;
+  folder_id: number | null;
   title: string | null;
   text: string | null;
   visibility: MemoryVisibility;
@@ -92,9 +95,9 @@ export interface MemoryFormState {
   title: string;
   text: string;
   folder_id: number | null;
-  photo: File | null;
-  video: File | null;
-  audioBlob: Blob | null;
+  photo: File | null | "remove";
+  video: File | null | "remove";
+  audioBlob: Blob | null | "remove";
   date: string;
   visibility: MemoryVisibility | "";
 }

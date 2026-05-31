@@ -59,7 +59,7 @@ export default function FolderFormDialog({
         toast.error(result.error);
         return;
       }
-      toast.success(mode === "create" ? "فولدر ایجاد شد" : "فولدر ویرایش شد");
+      toast.success(mode === "create" ? "آلبوم ایجاد شد" : "آلبوم ویرایش شد");
       onOpenChange(false);
       onSuccess("folder" in result ? result.folder : undefined);
     });
@@ -70,12 +70,12 @@ export default function FolderFormDialog({
       <DialogContent className="max-w-sm">
         <DialogHeader>
           <DialogTitle>
-            {mode === "create" ? "فولدر جدید" : "ویرایش فولدر"}
+            {mode === "create" ? "آلبوم جدید" : "ویرایش آلبوم"}
           </DialogTitle>
         </DialogHeader>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
-            <Label htmlFor="folder-title">نام فولدر</Label>
+            <Label htmlFor="folder-title">نام آلبوم</Label>
             <Input
               id="folder-title"
               className="h-11"
@@ -95,7 +95,7 @@ export default function FolderFormDialog({
               id="folder-desc"
               className="resize-none"
               rows={3}
-              placeholder="توضیح کوتاهی درباره این فولدر..."
+              placeholder="توضیح کوتاهی درباره این آلبوم..."
               {...form.register("description")}
             />
           </div>
