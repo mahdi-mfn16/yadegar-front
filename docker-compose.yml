@@ -21,7 +21,7 @@ services:
     networks:
       - shared_net
 
-# docker compose --profile prod up frontend-prod --build
+# docker compose --profile prod up frontend-prod -d --build
   frontend-prod:
     build:
       context: .

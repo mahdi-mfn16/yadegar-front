@@ -94,7 +94,7 @@ export const memoryStep3Schema = z.object({
     .nullable()
     .optional(),
   visibility: z.enum(["private", "family", "public", "anonymous"], {
-    required_error: "نوع دسترسی الزامی است",
+    message: "نوع دسترسی الزامی است",
   }),
 });
 export type MemoryStep3Data = z.infer<typeof memoryStep3Schema>;

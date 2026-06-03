@@ -61,7 +61,7 @@ export default function FolderFormDialog({
       }
       toast.success(mode === "create" ? "آلبوم ایجاد شد" : "آلبوم ویرایش شد");
       onOpenChange(false);
-      onSuccess("folder" in result ? result.folder : undefined);
+      onSuccess("folder" in result ? (result.folder as FolderType) : undefined);
     });
   }
 
