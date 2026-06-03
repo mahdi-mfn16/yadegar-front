@@ -22,7 +22,7 @@ COPY . .
 RUN npm run build
 
 # Production Runtime
-FROM node:18-alpine AS production
+FROM node:20-alpine AS production
 WORKDIR /app
 
 COPY package.json ./

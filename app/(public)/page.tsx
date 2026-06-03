@@ -1,29 +1,28 @@
 import { Metadata } from "next";
-import { Compass } from "lucide-react";
+import { getPublicMemories } from "@/actions/explore";
+import ExploreFeed from "@/components/explore/explore-feed";
 
 export const metadata: Metadata = {
-  title: "کاوش خاطرات | یادگار",
+  title: "خاطرات مشترک | یادگار",
 };
 
-export default function ExplorePage() {
+export default async function ExplorePage() {
+  const { items, currentPage, lastPage } = await getPublicMemories(1);
+
   return (
-    <div className="flex flex-col gap-6 py-6">
-      <div className="text-center space-y-2">
-        <div className="flex justify-center">
-          <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
-            <Compass className="size-6 text-primary" />
-          </div>
-        </div>
-        <h1 className="text-2xl font-black">کاوش خاطرات</h1>
-        <p className="text-muted-foreground">
-          خاطرات مشترک را کشف کنید
+    <div className="flex flex-col gap-5 py-6">
+      <div className="rounded-2xl bg-linear-to-l from-primary/10 via-primary/5 to-transparent border border-border/40 px-4 py-4">
+        <h1 className="text-xl font-black tracking-tight">خاطرات مشترک</h1>
+        <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
+          لحظاتی که مردم از زندگی‌شان با دیگران به اشتراک گذاشته‌اند
         </p>
       </div>
 
-      {/* در مرحله بعد: لیست خاطرات عمومی */}
-      <div className="flex flex-col items-center justify-center py-16 text-muted-foreground">
-        <p className="text-base">به زودی...</p>
-      </div>
+      <ExploreFeed
+        initialItems={items}
+        initialPage={currentPage}
+        initialLastPage={lastPage}
+      />
     </div>
   );
 }

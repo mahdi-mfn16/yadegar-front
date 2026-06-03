@@ -31,12 +31,17 @@ export default function PersianDatePicker({
     : undefined;
 
   function handleChange(date: DateObject | null) {
-    if (!date) {
+    if (!date || !date.isValid) {
       onChange(null);
       return;
     }
-    const gregorianDate = new DateObject(date).convert(gregorian, gregorian_en);
-    onChange(gregorianDate.format("YYYY-MM-DD"));
+    const gregorianDate = date.convert(gregorian, gregorian_en);
+    const formatted = gregorianDate.format("YYYY-MM-DD");
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(formatted)) {
+      onChange(null);
+      return;
+    }
+    onChange(formatted);
   }
 
   return (

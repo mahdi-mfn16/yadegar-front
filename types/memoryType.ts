@@ -1,5 +1,12 @@
 import z from "zod";
 
+export interface UserPublicType {
+  id: number;
+  name: string | null;
+  username: string | null;
+  avatar: string; // URL string از getFileUrl
+}
+
 export interface FolderType {
   id: number;
   title: string;
@@ -60,6 +67,7 @@ export interface MemoryType {
   photo: MediaFileType | null;
   audio: MediaFileType | null;
   video: MediaFileType | null;
+  user?: UserPublicType | null;
   folder?: FolderType | null;
 }
 

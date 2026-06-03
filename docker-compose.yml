@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
 
+# docker compose up frontend -d  // --build for new packages
   frontend:
     build:
       context: .
@@ -20,11 +21,23 @@ services:
     networks:
       - shared_net
 
+# docker compose --profile prod up frontend-prod --build
+  frontend-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: yadegar_nextjs_prod
+    ports:
+      - "3003:3000"
+    environment:
+      - NODE_ENV=production
+      - API_URL=http://yadegar_machine
+    networks:
+      - shared_net
+    profiles:
+      - prod
+
 networks:
   shared_net:
     external: true
-
-
-# --- Production ---
-# docker build --target production -t yadegar-next-app .
-# docker run -p 3000:3000 -e API_URL=http://yadegar_machine --network shared_net yadegar-next-app

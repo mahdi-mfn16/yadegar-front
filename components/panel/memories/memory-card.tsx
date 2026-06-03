@@ -24,6 +24,8 @@ import {
 import {
   Dialog,
   DialogContent,
+  DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
 import { MoreVertical, Pencil, Trash2, Video, Mic, Folder } from "lucide-react";
@@ -161,6 +163,7 @@ export default function MemoryCard({ memory, onMutated }: Props) {
       {/* مودال رسانه */}
       <Dialog open={!!mediaModal} onOpenChange={() => setMediaModal(null)}>
         <DialogContent className="max-w-sm gap-3" showCloseButton>
+          <DialogHeader><DialogTitle></DialogTitle></DialogHeader>
           {mediaModal?.type === "photo" && (
             <img
               src={mediaModal.url}

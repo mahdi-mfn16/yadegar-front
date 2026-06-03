@@ -78,7 +78,7 @@ export default function CreateMemoryForm({ mode = "create", initialMemory, initi
       if (formState.title) fd.append("title", formState.title);
       if (formState.text) fd.append("text", formState.text);
       if (formState.folder_id) fd.append("folder_id", String(formState.folder_id));
-      if (formState.date) fd.append("date", formState.date);
+      if (formState.date && /^\d{4}-\d{2}-\d{2}$/.test(formState.date)) fd.append("date", formState.date);
 
       if (photo instanceof File) {
         fd.append("photo", photo);
