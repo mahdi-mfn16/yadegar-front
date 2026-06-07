@@ -42,3 +42,37 @@ export async function getPublicMemories(page: number = 1, limit: number = 10): P
     return { items: [], currentPage: 1, lastPage: 1, total: 0 };
   }
 }
+
+
+
+export async function getFriendsMemories(page: number = 1, limit: number = 10): Promise<ExploreResult> {
+  try {
+    const params = new URLSearchParams();
+    params.append('filters[visibility][]', 'family');
+    params.append('filters[not_own]', '1');
+    params.append('sort[by]', 'created_at');
+    params.append('sort[dir]', 'desc');
+    params.append('page', String(page));
+    params.append('limit', String(limit));
+
+    const res = await fetch(`${API_URL}/api/memories/family?${params.toString()}`, {
+      headers: { Accept: 'application/json' },
+      next: { revalidate: 60, tags: ['friends-memories'] },
+    });
+
+    if (!res.ok) return { items: [], currentPage: 1, lastPage: 1, total: 0 };
+
+    const data = await res.json();
+    const items = (data?.data?.items as MemoryType[]) || [];
+    const links = data?.data?.links ?? {};
+
+    return {
+      items,
+      currentPage: links.current_page ?? page,
+      lastPage: links.last_page ?? 1,
+      total: links.total ?? items.length,
+    };
+  } catch {
+    return { items: [], currentPage: 1, lastPage: 1, total: 0 };
+  }
+}

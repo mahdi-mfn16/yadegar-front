@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, Compass, UserCircle } from "lucide-react";
+import { BookOpen, Compass, UserCircle , BookUser } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/panel/dashboard", label: "خاطرات من", icon: BookOpen },
   { href: "/", label: "کاوش", icon: Compass },
+  { href: "/friends", label: "یادگار رفیقان", icon: BookUser },
   { href: "/panel/profile", label: "پروفایل", icon: UserCircle },
 ];
 

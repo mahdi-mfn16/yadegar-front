@@ -63,7 +63,7 @@ export default function ExploreFeed({ initialItems, initialPage, initialLastPage
         </div>
         <div className="text-center space-y-1">
           <p className="text-base font-medium">خاطره‌ای برای نمایش نیست</p>
-          <p className="text-sm">اولین خاطره عمومی را ثبت کنید</p>
+          <p className="text-sm">اولین خاطره را ثبت کنید</p>
         </div>
       </div>
     );

@@ -179,6 +179,8 @@ export async function createMemory(
     }
     const data = await res.json();
     revalidateTag('my-memories', {expire: 300});
+    revalidateTag('friends-memories', {expire: 300});
+    revalidateTag('explore-memories', {expire: 300});
     return { success: true, memory: data?.data?.item as MemoryType };
   } catch {
     return { error: 'خطا در اتصال به سرور' };
@@ -209,6 +211,8 @@ export async function updateMemory(
     const data = await res.json();
     revalidateTag('my-memories', {expire: 300});
     revalidateTag(`memory-${id}`, {expire: 300});
+    revalidateTag('friends-memories', {expire: 300});
+    revalidateTag('explore-memories', {expire: 300});
     return { success: true, memory: data?.data?.item as MemoryType };
   } catch {
     return { error: 'خطا در اتصال به سرور' };
@@ -230,6 +234,8 @@ export async function deleteMemory(
       return { error: data?.message || 'خطا در حذف خاطره' };
     }
     revalidateTag('my-memories', {expire: 300});
+    revalidateTag('friends-memories', {expire: 300});
+    revalidateTag('explore-memories', {expire: 300});
     return { success: true };
   } catch {
     return { error: 'خطا در اتصال به سرور' };

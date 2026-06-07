@@ -13,7 +13,7 @@ interface Props {
 
 const TABS = [
   { key: "mine", label: "خاطرات من" },
-  { key: "family", label: "خانوادگی" },
+  // { key: "family", label: "خانوادگی" },
 ] as const;
 
 type TabKey = (typeof TABS)[number]["key"];
@@ -24,7 +24,7 @@ export default function DashboardTabs({ initialFolders, initialMemories }: Props
   return (
     <div className="flex flex-col gap-4">
       {/* تب‌های اصلی */}
-      <div className="flex border-b border-border">
+      {/* <div className="flex border-b border-border">
         {TABS.map((tab) => (
           <button
             key={tab.key}
@@ -39,7 +39,7 @@ export default function DashboardTabs({ initialFolders, initialMemories }: Props
             {tab.label}
           </button>
         ))}
-      </div>
+      </div> */}
 
       {activeTab === "mine" ? (
         <MyMemoriesSection
