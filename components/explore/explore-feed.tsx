@@ -2,18 +2,28 @@
 
 import { useState, useRef, useEffect, useTransition, useCallback } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Compass } from "lucide-react";
+import { Compass, Users2 } from "lucide-react";
 import ExploreMemoryCard from "./explore-memory-card";
-import { getPublicMemories } from "@/actions/explore";
+import { getPublicMemories, type ExploreResult } from "@/actions/explore";
 import type { MemoryType } from "@/types/memoryType";
 
 interface Props {
   initialItems: MemoryType[];
   initialPage: number;
   initialLastPage: number;
+  fetchFn?: (page: number) => Promise<ExploreResult>;
+  emptyIcon?: "compass" | "friends";
+  emptyText?: string;
 }
 
-export default function ExploreFeed({ initialItems, initialPage, initialLastPage }: Props) {
+export default function ExploreFeed({
+  initialItems,
+  initialPage,
+  initialLastPage,
+  fetchFn,
+  emptyIcon = "compass",
+  emptyText = "خاطره‌ای برای نمایش نیست",
+}: Props) {
   const [items, setItems] = useState<MemoryType[]>(initialItems);
   const [page, setPage] = useState(initialPage);
   const [lastPage, setLastPage] = useState(initialLastPage);
@@ -21,32 +31,28 @@ export default function ExploreFeed({ initialItems, initialPage, initialLastPage
   const sentinelRef = useRef<HTMLDivElement>(null);
 
   const hasMore = page < lastPage;
-
   const loadMoreRef = useRef<() => void>(() => {});
 
   const loadMore = useCallback(() => {
     if (isPending || !hasMore) return;
     const nextPage = page + 1;
+    const fn = fetchFn ?? getPublicMemories;
     startTransition(async () => {
-      const result = await getPublicMemories(nextPage);
+      const result = await fn(nextPage);
       setItems((prev) => [...prev, ...result.items]);
       setPage(result.currentPage);
       setLastPage(result.lastPage);
     });
-  }, [isPending, hasMore, page]);
+  }, [isPending, hasMore, page, fetchFn]);
 
-  // always keep ref fresh
   useEffect(() => {
     loadMoreRef.current = loadMore;
   });
 
-  // IntersectionObserver — setup once
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
-          loadMoreRef.current();
-        }
+        if (entries[0].isIntersecting) loadMoreRef.current();
       },
       { rootMargin: "400px" }
     );
@@ -56,14 +62,17 @@ export default function ExploreFeed({ initialItems, initialPage, initialLastPage
   }, []);
 
   if (items.length === 0 && !isPending) {
+    const Icon = emptyIcon === "friends" ? Users2 : Compass;
     return (
       <div className="flex flex-col items-center justify-center py-20 gap-4 text-muted-foreground">
         <div className="size-14 rounded-2xl bg-muted flex items-center justify-center">
-          <Compass className="size-7" />
+          <Icon className="size-7" />
         </div>
         <div className="text-center space-y-1">
-          <p className="text-base font-medium">خاطره‌ای برای نمایش نیست</p>
-          <p className="text-sm">اولین خاطره را ثبت کنید</p>
+          <p className="text-base font-medium">{emptyText}</p>
+          {emptyIcon === "friends" && (
+            <p className="text-sm">خاطرات رفیقان شما در اینجا نمایش داده می‌شود</p>
+          )}
         </div>
       </div>
     );
@@ -75,10 +84,8 @@ export default function ExploreFeed({ initialItems, initialPage, initialLastPage
         <ExploreMemoryCard key={memory.id} memory={memory} />
       ))}
 
-      {/* sentinel برای infinite scroll */}
       <div ref={sentinelRef} className="h-1" />
 
-      {/* loading skeleton */}
       {isPending && (
         <div className="flex flex-col gap-4">
           {Array.from({ length: 3 }).map((_, i) => (
@@ -98,7 +105,6 @@ export default function ExploreFeed({ initialItems, initialPage, initialLastPage
         </div>
       )}
 
-      {/* پایان لیست */}
       {!hasMore && !isPending && items.length > 0 && (
         <p className="text-center text-xs text-muted-foreground py-4">
           همه خاطرات نمایش داده شد

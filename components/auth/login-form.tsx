@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
@@ -24,6 +24,8 @@ export default function LoginForm() {
   const [isPending, startTransition] = useTransition();
   const [resendTimer, setResendTimer] = useState(0);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirect") || "/panel/dashboard";
 
   const mobileForm = useForm<SendCodeData>({
     resolver: zodResolver(sendCodeSchema),
@@ -71,7 +73,7 @@ export default function LoginForm() {
         return;
       }
       toast.success("خوش آمدید!");
-      router.push("/panel/dashboard");
+      router.push(redirectTo);
       router.refresh();
     });
   }

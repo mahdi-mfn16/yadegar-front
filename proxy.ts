@@ -5,9 +5,10 @@ export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const isPanel = pathname.startsWith("/panel");
+  const isFriends = pathname === "/friends";
   const isLogin = pathname === "/login";
 
-  if (isPanel && !token) {
+  if ((isPanel || isFriends) && !token) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
@@ -19,5 +20,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/panel/:path*", "/login"],
+  matcher: ["/panel/:path*", "/friends", "/login"],
 };

@@ -17,10 +17,10 @@ export interface FolderType {
 export type MemoryVisibility = "private" | "family" | "public" | "anonymous";
 
 export const VISIBILITY_OPTIONS: { value: MemoryVisibility; label: string }[] = [
-  { value: "private", label: "خصوصی — فقط خودم" },
-  { value: "family", label: "خانوادگی — خانواده‌ام" },
-  { value: "public", label: "عمومی — همه با نامم" },
-  { value: "anonymous", label: "ناشناس — همه بدون نامم" },
+  { value: "private", label: "خصوصی — فقط خودم میبینم" },
+  { value: "family", label: "حلقه رفیقان — فقط خانواده و رفیقان میبینند" },
+  { value: "public", label: "عمومی — همه با نام من میبینند" },
+  { value: "anonymous", label: "ناشناس — همه بدون ذکر نام من میبینند" },
 ];
 
 export const VISIBILITY_BADGE: Record<

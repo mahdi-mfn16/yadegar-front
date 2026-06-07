@@ -1,5 +1,6 @@
 'use server'
 
+import { cookies } from 'next/headers';
 import type { MemoryType } from '@/types/memoryType';
 
 const API_URL = process.env.API_URL || 'http://localhost:8000';
@@ -47,6 +48,10 @@ export async function getPublicMemories(page: number = 1, limit: number = 10): P
 
 export async function getFriendsMemories(page: number = 1, limit: number = 10): Promise<ExploreResult> {
   try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get('auth_token')?.value;
+    if (!token) return { items: [], currentPage: 1, lastPage: 1, total: 0 };
+
     const params = new URLSearchParams();
     params.append('filters[visibility][]', 'family');
     params.append('filters[not_own]', '1');
@@ -55,8 +60,11 @@ export async function getFriendsMemories(page: number = 1, limit: number = 10): 
     params.append('page', String(page));
     params.append('limit', String(limit));
 
-    const res = await fetch(`${API_URL}/api/memories/family?${params.toString()}`, {
-      headers: { Accept: 'application/json' },
+    const res = await fetch(`${API_URL}/api/memories/memories/family?${params.toString()}`, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
       next: { revalidate: 60, tags: ['friends-memories'] },
     });
 
