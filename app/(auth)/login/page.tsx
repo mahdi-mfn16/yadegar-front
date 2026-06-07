@@ -1,5 +1,7 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 import LoginForm from "@/components/auth/login-form";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const metadata: Metadata = {
   title: "ورود | یادگار",
@@ -22,8 +24,16 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {/* فرم ورود */}
-      <LoginForm />
+      {/* فرم ورود — Suspense برای useSearchParams */}
+      <Suspense fallback={
+        <div className="rounded-xl border bg-card p-6 flex flex-col gap-5">
+          <Skeleton className="h-5 w-40 mx-auto" />
+          <Skeleton className="h-11 w-full" />
+          <Skeleton className="h-12 w-full" />
+        </div>
+      }>
+        <LoginForm />
+      </Suspense>
 
       <p className="text-center text-xs text-muted-foreground mt-6">
         با ورود، قوانین و شرایط استفاده را می‌پذیرید
