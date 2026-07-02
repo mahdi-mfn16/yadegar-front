@@ -6,6 +6,11 @@ export default function TopBar() {
       <div className="flex items-center justify-between px-4 h-14 max-w-lg mx-auto">
         <ThemeToggle />
         <div className="flex items-center gap-1.5">
+          <img
+              src="/logo-rounded.png"
+              alt="یادگار"
+              className="w-xl h-xl object-cover rounded-3xl hover:brightness-15 transition-[filter] duration-200"
+            />
           <span className="text-xl font-black text-primary tracking-tight">
             یادگار
           </span>

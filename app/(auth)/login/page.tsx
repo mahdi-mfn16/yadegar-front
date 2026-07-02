@@ -16,7 +16,7 @@ export default function LoginPage() {
         <div className="w-20 h-20 rounded-3xl bg-primary flex items-center justify-center shadow-lg shadow-primary/25">
           {/* <span className="text-primary-foreground text-3xl font-black">ی</span> */}
           <img
-                src="app/favicon.ico"
+                src="/logo.png"
                 alt="یادگار"
                 className="w-full h-full object-cover rounded-3xl hover:brightness-15 transition-[filter] duration-200"
               />
