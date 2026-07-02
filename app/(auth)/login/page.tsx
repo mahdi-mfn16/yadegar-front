@@ -18,7 +18,7 @@ export default function LoginPage() {
           <img
                 src="/logo.png"
                 alt="یادگار"
-                className="w-full h-full object-cover rounded-3xl hover:brightness-15 transition-[filter] duration-200"
+                className="overflow-hidden object-cover rounded-3xl hover:brightness-15 transition-[filter] duration-200"
               />
         </div>
         <div className="text-center space-y-1">
