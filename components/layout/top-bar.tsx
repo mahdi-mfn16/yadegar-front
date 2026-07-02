@@ -9,7 +9,7 @@ export default function TopBar() {
           <img
               src="/logo-rounded.png"
               alt="یادگار"
-              className="w-10 h-10 object-cover rounded-3xl hover:brightness-15 transition-[filter] duration-200"
+              className="w-10 h-10 object-cover rounded-full"
             />
           <span className="text-xl font-black text-primary tracking-tight">
             یادگار
