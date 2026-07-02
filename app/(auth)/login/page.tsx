@@ -14,7 +14,7 @@ export default function LoginPage() {
     <div className="w-full max-w-sm">
       {/* لوگو و عنوان */}
       <div className="flex flex-col items-center gap-4 mb-8">
-        <div className="w-20 h-20 rounded-3xl bg-primary flex items-center justify-center shadow-lg shadow-primary/25 overflow-hidden">
+        <div className="relative w-20 h-20 rounded-3xl bg-primary flex items-center justify-center shadow-lg shadow-primary/25 overflow-hidden">
           {/* <span className="text-primary-foreground text-3xl font-black">ی</span> */}
           <Image
           src="/logo.png"
