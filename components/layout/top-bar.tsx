@@ -10,7 +10,6 @@ export default function TopBar() {
           <Image
             src="/logo-rounded.png"
             alt="یادگار"
-            fill
             className="w-10 h-10 object-cover rounded-full"
             sizes="40px"
           />
