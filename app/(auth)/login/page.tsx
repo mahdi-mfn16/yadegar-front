@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 import LoginForm from "@/components/auth/login-form";
 import { Skeleton } from "@/components/ui/skeleton";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "ورود | یادگار",
@@ -13,13 +14,15 @@ export default function LoginPage() {
     <div className="w-full max-w-sm">
       {/* لوگو و عنوان */}
       <div className="flex flex-col items-center gap-4 mb-8">
-        <div className="w-20 h-20 rounded-3xl bg-primary flex items-center justify-center shadow-lg shadow-primary/25">
+        <div className="w-20 h-20 rounded-3xl bg-primary flex items-center justify-center shadow-lg shadow-primary/25 overflow-hidden">
           {/* <span className="text-primary-foreground text-3xl font-black">ی</span> */}
-          <img
-                src="/logo.png"
-                alt="یادگار"
-                className="overflow-hidden object-cover hover:brightness-95 transition-[filter] duration-200"
-              />
+          <Image
+          src="/logo.png"
+          alt="یادگار"
+          fill
+          className="object-cover hover:brightness-95 transition-[filter] duration-200"
+          sizes="80px"
+        />
         </div>
         <div className="text-center space-y-1">
           <h1 className="text-2xl font-black text-foreground">یادگار</h1>

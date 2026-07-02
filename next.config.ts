@@ -9,6 +9,14 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: process.cwd(),
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.yaadegaar.ir",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

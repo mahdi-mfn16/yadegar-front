@@ -33,6 +33,7 @@ import { deleteMemory } from "@/actions/memory";
 import { toShamsi } from "@/components/ui/persian-date-picker";
 import { VISIBILITY_BADGE, type MemoryType } from "@/types/memoryType";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 interface Props {
   memory: MemoryType;
@@ -77,11 +78,20 @@ export default function MemoryCard({ memory, onMutated }: Props) {
                 onClick={() => setMediaModal({ type: "photo", url: photoUrl })}
                 className="shrink-0 size-16 rounded-xl overflow-hidden border border-border/60 self-start"
               >
-                <img
+                {/* <img
                   src={photoUrl}
                   alt={memory.title ?? "عکس خاطره"}
                   className="w-full h-full object-cover"
-                />
+                /> */}
+                <div className="relative w-full h-full">
+                  <Image
+                    src={photoUrl}
+                    alt={memory.title ?? "عکس خاطره"}
+                    fill
+                    sizes="64px"
+                    className="object-cover"
+                  />
+                </div>
               </button>
             )}
 
@@ -165,11 +175,20 @@ export default function MemoryCard({ memory, onMutated }: Props) {
         <DialogContent className="max-w-sm gap-3" showCloseButton>
           <DialogHeader><DialogTitle></DialogTitle></DialogHeader>
           {mediaModal?.type === "photo" && (
-            <img
-              src={mediaModal.url}
-              alt="تصویر خاطره"
-              className="w-full rounded-lg object-contain max-h-[70vh]"
-            />
+            // <img
+            //   src={mediaModal.url}
+            //   alt="تصویر خاطره"
+            //   className="w-full rounded-lg object-contain max-h-[70vh]"
+            // />
+            <div className="relative w-full h-[70vh]">
+              <Image
+                src={mediaModal.url}
+                alt="تصویر خاطره"
+                fill
+                sizes="100vw"
+                className="object-contain rounded-lg"
+              />
+            </div>
           )}
           {mediaModal?.type === "video" && (
             <video

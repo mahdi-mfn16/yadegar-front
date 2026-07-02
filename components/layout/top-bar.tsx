@@ -1,4 +1,5 @@
 import { ThemeToggle } from "@/components/layout/theme-toggle";
+import Image from "next/image";
 
 export default function TopBar() {
   return (
@@ -6,11 +7,13 @@ export default function TopBar() {
       <div className="flex items-center justify-between px-4 h-14 max-w-lg mx-auto">
         <ThemeToggle />
         <div className="flex items-center gap-1.5">
-          <img
-              src="/logo-rounded.png"
-              alt="یادگار"
-              className="w-10 h-10 object-cover rounded-full"
-            />
+          <Image
+            src="/logo-rounded.png"
+            alt="یادگار"
+            fill
+            className="w-10 h-10 object-cover rounded-full"
+            sizes="40px"
+          />
           <span className="text-xl font-black text-primary tracking-tight">
             یادگار
           </span>

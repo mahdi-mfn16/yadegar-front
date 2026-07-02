@@ -7,6 +7,7 @@ import { toShamsi } from "@/components/ui/persian-date-picker";
 import { type MemoryType } from "@/types/memoryType";
 import { UserCircle, EyeOff, Mic, Play, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 interface Props {
   memory: MemoryType;
@@ -73,11 +74,20 @@ export default function ExploreMemoryCard({ memory }: Props) {
               onClick={() => setMediaModal({ type: "photo", url: photoUrl })}
               aria-label="مشاهده تصویر"
             >
-              <img
+              {/* <img
                 src={photoUrl}
                 alt={memory.title ?? "خاطره"}
                 className="w-full h-52 object-cover rounded-sm hover:brightness-95 transition-[filter] duration-200"
-              />
+              /> */}
+              <div className="relative w-full h-52 overflow-hidden rounded-sm">
+                <Image
+                  src={photoUrl}
+                  alt={memory.title ?? "خاطره"}
+                  fill
+                  className="object-cover hover:brightness-95 transition-[filter] duration-200"
+                  sizes="(max-width: 768px) 100vw, 600px"
+                />
+              </div>
             </button>
           )}
 
@@ -170,11 +180,20 @@ export default function ExploreMemoryCard({ memory }: Props) {
           </button>
 
           {mediaModal?.type === "photo" && (
-            <img
-              src={mediaModal.url}
-              alt="تصویر خاطره"
-              className="w-full rounded-xl object-contain max-h-[75vh]"
-            />
+            // <img
+            //   src={mediaModal.url}
+            //   alt="تصویر خاطره"
+            //   className="w-full rounded-xl object-contain max-h-[75vh]"
+            // />
+            <div className="relative w-full h-[75vh]">
+              <Image
+                src={mediaModal.url}
+                alt="تصویر خاطره"
+                fill
+                className="object-contain rounded-xl"
+                sizes="100vw"
+              />
+            </div>
           )}
           {mediaModal?.type === "video" && (
             <video
