@@ -180,7 +180,7 @@ export default function MemoryCard({ memory, onMutated }: Props) {
             //   alt="تصویر خاطره"
             //   className="w-full rounded-lg object-contain max-h-[70vh]"
             // />
-            <div className="relative w-full h-[70vh]">
+            <div className="relative w-full aspect-video max-h-[70vh]">
               <Image
                 src={mediaModal.url}
                 alt="تصویر خاطره"
