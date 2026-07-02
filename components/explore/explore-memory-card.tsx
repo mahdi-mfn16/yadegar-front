@@ -79,7 +79,7 @@ export default function ExploreMemoryCard({ memory }: Props) {
                 alt={memory.title ?? "خاطره"}
                 className="w-full h-52 object-cover rounded-sm hover:brightness-95 transition-[filter] duration-200"
               /> */}
-              <div className="relative w-full h-52 overflow-hidden rounded-sm">
+              <div className="relative w-full aspect-video overflow-hidden rounded-sm">
                 <Image
                   src={photoUrl}
                   alt={memory.title ?? "خاطره"}
@@ -185,7 +185,7 @@ export default function ExploreMemoryCard({ memory }: Props) {
             //   alt="تصویر خاطره"
             //   className="w-full rounded-xl object-contain max-h-[75vh]"
             // />
-            <div className="relative w-full h-[75vh]">
+            <div className="relative w-full aspect-video max-h-[75vh]">
               <Image
                 src={mediaModal.url}
                 alt="تصویر خاطره"
